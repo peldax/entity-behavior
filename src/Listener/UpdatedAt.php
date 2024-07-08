@@ -20,7 +20,7 @@ final class UpdatedAt
     #[Listen(OnUpdate::class)]
     public function __invoke(OnUpdate $event): void
     {
-        if ($event->command instanceof StoreCommandInterface) {
+        if ($event->command instanceof StoreCommandInterface && $event->state->hasChanges()) {
             $event->command->registerAppendix($this->field, $event->timestamp);
         }
     }
